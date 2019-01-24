@@ -12,12 +12,12 @@ import java.util.List;
 final class CitiesListInteractor implements CitiesListContract.Interactor {
 
     @NonNull
-    private final CitiesListService mService;
+    private final CitiesListContract.Service mService;
 
     @NonNull
     private List<CityModel> mCityModels;
 
-    CitiesListInteractor(@NonNull final CitiesListService service) {
+    CitiesListInteractor(@NonNull final CitiesListContract.Service service) {
         mService = service;
     }
 

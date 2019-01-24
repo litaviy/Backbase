@@ -12,13 +12,13 @@ import java.io.InputStream;
 /**
  * Created by klitaviy on 1/23/19-10:00 PM.
  */
-class AssetsFileStreamProviderImpl implements AssetsFileStreamProvider {
+public class AssetsFileStreamProviderImpl implements AssetsFileStreamProvider {
 
 
     @Nullable
     private AssetManager mAssetManager;
 
-    AssetsFileStreamProviderImpl(@Nullable AssetManager assetManager) {
+    public AssetsFileStreamProviderImpl(@Nullable AssetManager assetManager) {
         mAssetManager = assetManager;
     }
 

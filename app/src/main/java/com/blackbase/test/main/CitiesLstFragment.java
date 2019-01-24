@@ -1,5 +1,6 @@
 package com.blackbase.test.main;
 
+import android.app.Activity;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -24,6 +25,8 @@ import java.util.List;
  */
 public final class CitiesLstFragment extends BaseFragment implements CitiesListContract.View {
 
+    public static final String TAG = "cities_fragment";
+
     @Nullable
     private CitiesListContract.Presenter mPresenter;
 
@@ -46,7 +49,13 @@ public final class CitiesLstFragment extends BaseFragment implements CitiesListC
     @Override
     public void onCreate(@Nullable final Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        setRetainInstance(true);
         mLoader = CitiesListDependenciesProvider.provideLoader();
+
+        final Activity activity = getActivity();
+        if (Condition.isNotNull(activity)) {
+            mPresenter = CitiesListDependenciesProvider.providePresenter(activity, this);
+        }
     }
 
     @Nullable

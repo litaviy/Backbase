@@ -2,18 +2,24 @@ package com.blackbase.test.main.data;
 
 import android.support.annotation.NonNull;
 
+import com.google.gson.annotations.SerializedName;
+
 /**
  * Created by klitaviy on 1/23/19-10:16 PM.
  */
 public class CityModel {
 
+
     @NonNull
+    @SerializedName("country")
     private final String mCountry;
     @NonNull
+    @SerializedName("name")
     private final String mName;
-
+    @SerializedName("_id")
     private final int mId;
     @NonNull
+    @SerializedName("coord")
     private final Coordinates mCoordinates;
 
     public CityModel(@NonNull final String country,

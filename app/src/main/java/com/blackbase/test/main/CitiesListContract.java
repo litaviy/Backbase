@@ -14,7 +14,7 @@ import java.util.List;
  */
 public interface CitiesListContract {
 
-    interface Coordinator {
+    interface Coordinator extends Destroyable {
         void cityCoordinatesClicked(@NonNull final Coordinates coordinates);
     }
 

@@ -9,6 +9,8 @@ import com.blackbase.test.main.data.Coordinates;
 import com.blackbase.test.main.data.filtering.CitiesFilter;
 import com.blackbase.test.main.data.filtering.CitiesFilterFabric;
 import com.blackbase.test.main.data.filtering.FilteredResultsListener;
+import com.blackbase.test.main.data.worker.Worker;
+import com.blackbase.test.main.data.worker.WorkerListener;
 
 import java.util.List;
 
@@ -36,6 +38,38 @@ final class CitiesListPresenter implements CitiesListContract.Presenter {
     };
     @Nullable
     private CitiesFilter mCitiesFilter;
+    @Nullable
+    private WorkerListener<List<CityModel>> mCitiesDataWorkerListener = new WorkerListener<List<CityModel>>() {
+        @Override
+        public void onInitialSetup() {
+            if (Condition.isNotNull(mView)) {
+                mView.showProgress();
+            }
+        }
+
+        @Override
+        public List<CityModel> provideResults() {
+            mInteractor.init();
+            return mInteractor.getCities();
+        }
+
+        @Override
+        public void onResultsProvided(@Nullable final List<CityModel> results) {
+            if (Condition.isNotNull(mView)) {
+                mCitiesFilter = mCitiesFilterFabric.create(mInteractor.getCities());
+                mCitiesFilter.registerListener(mFilteredResultsListener);
+
+                if (Condition.isNotNull(results)) {
+                    mView.setCities(results, CitiesListPresenter.this);
+                }
+
+                mView.hideProgress();
+            }
+        }
+    };
+
+    @Nullable
+    private Worker<List<CityModel>> mCitiesDataWorker;
 
     CitiesListPresenter(@NonNull final CitiesListContract.Coordinator coordinator,
                         @NonNull final CitiesListContract.View view,
@@ -45,31 +79,30 @@ final class CitiesListPresenter implements CitiesListContract.Presenter {
         mView = view;
         mInteractor = interactor;
         mCitiesFilterFabric = citiesFilterFabric;
+        mCitiesDataWorker = new Worker<>(mCitiesDataWorkerListener);
     }
 
     @Override
     public void destroy() {
+        if (Condition.isNotNull(mCitiesDataWorker)) {
+            mCitiesDataWorker.destroy();
+            mCitiesDataWorker = null;
+        }
+        mCitiesDataWorkerListener = null;
         mView = null;
+        mCoordinator.destroy();
         mInteractor.destroy();
         if (Condition.isNotNull(mCitiesFilter)) {
             mCitiesFilter.unregisterListener(mFilteredResultsListener);
+            mCitiesFilter.destroy();
             mCitiesFilter = null;
         }
     }
 
     @Override
     public void onViewReady() {
-        if (Condition.isNotNull(mView)) {
-            mView.showProgress();
-
-            mInteractor.init();
-
-            mCitiesFilter = mCitiesFilterFabric.create(mInteractor.getCities());
-            mCitiesFilter.registerListener(mFilteredResultsListener);
-
-            mView.setCities(mInteractor.getCities(), this);
-
-            mView.hideProgress();
+        if (Condition.isNotNull(mCitiesDataWorker)) {
+            mCitiesDataWorker.execute();
         }
     }
 

@@ -9,12 +9,12 @@ import java.util.List;
 /**
  * Created by klitaviy on 1/24/19-9:40 AM.
  */
-class CitiesFilterFabricImpl implements CitiesFilterFabric {
+public class CitiesFilterFabricImpl implements CitiesFilterFabric {
 
     @NonNull
     private final CitiesFilteringAlgorithm mFilteringAlgorithm;
 
-    CitiesFilterFabricImpl(@NonNull final CitiesFilteringAlgorithm filteringAlgorithm) {
+    public CitiesFilterFabricImpl(@NonNull final CitiesFilteringAlgorithm filteringAlgorithm) {
         mFilteringAlgorithm = filteringAlgorithm;
     }
 
