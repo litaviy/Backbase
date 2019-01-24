@@ -1,8 +1,8 @@
-package com.blackbase.test.main;
+package com.blackbase.test.main.cities;
 
 import android.support.annotation.NonNull;
 
-import com.blackbase.test.main.data.CityModel;
+import com.blackbase.test.main.cities.data.CityModel;
 
 import java.util.List;
 

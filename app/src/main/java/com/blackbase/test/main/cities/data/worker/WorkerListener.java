@@ -1,4 +1,4 @@
-package com.blackbase.test.main.data.worker;
+package com.blackbase.test.main.cities.data.worker;
 
 import android.support.annotation.Nullable;
 

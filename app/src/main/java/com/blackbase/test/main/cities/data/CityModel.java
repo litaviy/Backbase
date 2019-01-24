@@ -1,4 +1,4 @@
-package com.blackbase.test.main.data;
+package com.blackbase.test.main.cities.data;
 
 import android.support.annotation.NonNull;
 

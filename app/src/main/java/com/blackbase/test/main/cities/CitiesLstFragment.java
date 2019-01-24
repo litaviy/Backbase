@@ -1,4 +1,4 @@
-package com.blackbase.test.main;
+package com.blackbase.test.main.cities;
 
 import android.app.Activity;
 import android.os.Bundle;
@@ -16,7 +16,7 @@ import com.blackbase.test.common.BaseFragment;
 import com.blackbase.test.common.Condition;
 import com.blackbase.test.common.TextWatcherAdapter;
 import com.blackbase.test.common.loader.Loader;
-import com.blackbase.test.main.data.CityModel;
+import com.blackbase.test.main.cities.data.CityModel;
 
 import java.util.List;
 

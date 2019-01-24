@@ -1,4 +1,4 @@
-package com.blackbase.test.data.file;
+package com.blackbase.test.data;
 
 import android.support.annotation.NonNull;
 

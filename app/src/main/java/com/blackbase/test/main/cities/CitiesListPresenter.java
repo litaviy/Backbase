@@ -1,16 +1,16 @@
-package com.blackbase.test.main;
+package com.blackbase.test.main.cities;
 
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 
 import com.blackbase.test.common.Condition;
-import com.blackbase.test.main.data.CityModel;
-import com.blackbase.test.main.data.Coordinates;
-import com.blackbase.test.main.data.filtering.CitiesFilter;
-import com.blackbase.test.main.data.filtering.CitiesFilterFabric;
-import com.blackbase.test.main.data.filtering.FilteredResultsListener;
-import com.blackbase.test.main.data.worker.Worker;
-import com.blackbase.test.main.data.worker.WorkerListener;
+import com.blackbase.test.main.cities.data.CityModel;
+import com.blackbase.test.main.cities.data.Coordinates;
+import com.blackbase.test.main.cities.data.filtering.CitiesFilter;
+import com.blackbase.test.main.cities.data.filtering.CitiesFilterFabric;
+import com.blackbase.test.main.cities.data.filtering.FilteredResultsListener;
+import com.blackbase.test.main.cities.data.worker.Worker;
+import com.blackbase.test.main.cities.data.worker.WorkerListener;
 
 import java.util.List;
 

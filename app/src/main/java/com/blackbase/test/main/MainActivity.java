@@ -7,6 +7,7 @@ import android.support.v7.app.AppCompatActivity;
 
 import com.blackbase.test.R;
 import com.blackbase.test.common.Condition;
+import com.blackbase.test.main.cities.CitiesLstFragment;
 
 public class MainActivity extends AppCompatActivity {
 

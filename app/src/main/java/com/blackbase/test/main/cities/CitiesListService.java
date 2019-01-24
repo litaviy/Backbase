@@ -1,12 +1,12 @@
-package com.blackbase.test.main;
+package com.blackbase.test.main.cities;
 
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 
 import com.blackbase.test.common.Condition;
-import com.blackbase.test.data.file.AssetsFileStreamProvider;
+import com.blackbase.test.data.AssetsFileStreamProvider;
 import com.blackbase.test.logging.Logger;
-import com.blackbase.test.main.data.CityModel;
+import com.blackbase.test.main.cities.data.CityModel;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.stream.JsonReader;

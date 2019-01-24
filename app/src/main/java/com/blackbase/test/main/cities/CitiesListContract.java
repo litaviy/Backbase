@@ -1,11 +1,11 @@
-package com.blackbase.test.main;
+package com.blackbase.test.main.cities;
 
 import android.support.annotation.NonNull;
 
 import com.blackbase.test.common.Destroyable;
 import com.blackbase.test.common.Loadable;
-import com.blackbase.test.main.data.CityModel;
-import com.blackbase.test.main.data.Coordinates;
+import com.blackbase.test.main.cities.data.CityModel;
+import com.blackbase.test.main.cities.data.Coordinates;
 
 import java.util.List;
 

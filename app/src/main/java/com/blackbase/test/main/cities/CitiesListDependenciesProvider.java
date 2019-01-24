@@ -1,17 +1,17 @@
-package com.blackbase.test.main;
+package com.blackbase.test.main.cities;
 
 import android.app.Activity;
 import android.support.annotation.NonNull;
 
 import com.blackbase.test.common.loader.Loader;
 import com.blackbase.test.common.loader.LoaderProvider;
-import com.blackbase.test.data.file.AssetsFileStreamProvider;
-import com.blackbase.test.data.file.AssetsFileStreamProviderImpl;
+import com.blackbase.test.data.AssetsFileStreamProvider;
+import com.blackbase.test.data.AssetsFileStreamProviderImpl;
 import com.blackbase.test.logging.LoggerProvider;
-import com.blackbase.test.main.data.filtering.CitiesFilterFabric;
-import com.blackbase.test.main.data.filtering.CitiesFilterFabricImpl;
-import com.blackbase.test.main.data.filtering.CitiesFilteringAlgorithm;
-import com.blackbase.test.main.data.filtering.CitiesFilteringAlgorithmImpl;
+import com.blackbase.test.main.cities.data.filtering.CitiesFilterFabric;
+import com.blackbase.test.main.cities.data.filtering.CitiesFilterFabricImpl;
+import com.blackbase.test.main.cities.data.filtering.CitiesFilteringAlgorithm;
+import com.blackbase.test.main.cities.data.filtering.CitiesFilteringAlgorithmImpl;
 
 /**
  * Created by klitaviy on 1/24/19-10:53 AM.
