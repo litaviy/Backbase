@@ -34,7 +34,6 @@ class AssetsFileStreamProviderImpl implements AssetsFileStreamProvider {
 
     @Override
     public void destroy() {
-
         mAssetManager = null;
     }
 }

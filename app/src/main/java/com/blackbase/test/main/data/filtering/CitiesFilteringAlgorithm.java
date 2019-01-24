@@ -12,5 +12,6 @@ import java.util.List;
  */
 public interface CitiesFilteringAlgorithm {
     @NonNull
-    List<CityModel> invoke(@Nullable final CharSequence constraint);
+    List<CityModel> invoke(@Nullable final CharSequence constraint,
+                           @NonNull final List<CityModel> target);
 }

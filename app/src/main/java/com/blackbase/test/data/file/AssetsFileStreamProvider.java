@@ -10,7 +10,7 @@ import java.io.InputStream;
 /**
  * Created by klitaviy on 1/23/19-9:39 PM.
  */
-public interface AssetsFileStreamProvider extends Destroyable {
+interface AssetsFileStreamProvider extends Destroyable {
     @NonNull
     InputStream getInputStream(@NonNull final String fileName) throws IllegalStateException, IOException;
 }
