@@ -4,10 +4,13 @@ import android.support.annotation.NonNull;
 
 import com.blackbase.test.common.Destroyable;
 import com.blackbase.test.common.Loadable;
+import com.blackbase.test.main.cities.data.CitiesServiceData;
 import com.blackbase.test.main.cities.data.CityModel;
 import com.blackbase.test.main.cities.data.Coordinates;
 
 import java.util.List;
+import java.util.TreeMap;
+import java.util.TreeSet;
 
 /**
  * Created by klitaviy on 1/23/19-10:15 PM.
@@ -38,8 +41,12 @@ public interface CitiesListContract {
     interface Interactor extends Destroyable {
         void init();
 
+        boolean hasData();
         @NonNull
-        List<CityModel> getCities();
+        List<CityModel> getCitiesList();
+
+        @NonNull
+        TreeMap<String, TreeSet<CityModel>> getCitiesMap();
     }
 
     /*
@@ -48,6 +55,6 @@ public interface CitiesListContract {
      */
     interface Service extends Destroyable {
         @NonNull
-        List<CityModel> getCities();
+        CitiesServiceData getCitiesServiceData();
     }
 }

@@ -50,4 +50,10 @@ public class CityModel {
     public Coordinates getCoordinates() {
         return mCoordinates;
     }
+
+    @NonNull
+    @Override
+    public String toString() {
+        return mName + " : " + mCountry + " : " + mId;
+    }
 }

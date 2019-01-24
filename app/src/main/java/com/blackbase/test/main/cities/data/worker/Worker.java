@@ -13,6 +13,7 @@ public class Worker<T> extends AsyncTask<Void, Void, T> implements Destroyable {
 
     @Nullable
     private WorkerListener<T> mResultProvider;
+    private boolean mIsWorking;
 
     public Worker(@Nullable final WorkerListener<T> resultProvider) {
         mResultProvider = resultProvider;
@@ -28,6 +29,7 @@ public class Worker<T> extends AsyncTask<Void, Void, T> implements Destroyable {
 
     @Override
     protected T doInBackground(final Void... voids) {
+        mIsWorking = true;
         if (canDoAction()) {
             final T result = mResultProvider.provideResults();
             return result;
@@ -39,15 +41,32 @@ public class Worker<T> extends AsyncTask<Void, Void, T> implements Destroyable {
     @Override
     protected void onPostExecute(final T t) {
         super.onPostExecute(t);
+        mIsWorking = false;
         if (canDoAction()) {
             mResultProvider.onResultsProvided(t);
         }
     }
 
     @Override
+    protected void onCancelled(final T t) {
+        super.onCancelled(t);
+        mIsWorking = false;
+    }
+
+    @Override
+    protected void onCancelled() {
+        super.onCancelled();
+        mIsWorking = false;
+    }
+
+    @Override
     public void destroy() {
         cancel(true);
         mResultProvider = null;
+    }
+
+    public boolean isWorking() {
+        return mIsWorking;
     }
 
     private boolean canDoAction() {

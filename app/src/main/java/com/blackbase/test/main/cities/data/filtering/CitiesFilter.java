@@ -8,6 +8,8 @@ import com.blackbase.test.main.cities.data.CityModel;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.TreeMap;
+import java.util.TreeSet;
 
 /**
  * Created by klitaviy on 1/23/19-10:45 PM.
@@ -17,12 +19,12 @@ public class CitiesFilter extends Filter implements Destroyable {
     @NonNull
     private final CitiesFilteringAlgorithm mCitiesFilteringAlgorithm;
     @NonNull
-    private final List<CityModel> mSource;
+    private final TreeMap<String, TreeSet<CityModel>> mSource;
     @NonNull
     private final ArrayList<FilteredResultsListener<CityModel>> mFilterResultsListeners;
 
     CitiesFilter(@NonNull final CitiesFilteringAlgorithm citiesFilteringAlgorithm,
-                 @NonNull final List<CityModel> source) {
+                 @NonNull final TreeMap<String, TreeSet<CityModel>> source) {
         mCitiesFilteringAlgorithm = citiesFilteringAlgorithm;
         mSource = source;
         mFilterResultsListeners = new ArrayList<>();

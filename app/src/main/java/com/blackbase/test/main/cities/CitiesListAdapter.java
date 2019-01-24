@@ -72,6 +72,10 @@ class CitiesListAdapter extends ArrayAdapter<CityModel> {
         return convertView;
     }
 
+    public void swapData(@NonNull final List<CityModel> cityModels) {
+        clear();
+        addAll(cityModels);
+    }
 
     private static class ViewHolder {
         @NonNull

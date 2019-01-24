@@ -27,6 +27,10 @@ final class CitiesListPresenter implements CitiesListContract.Presenter {
     private final CitiesFilterFabric mCitiesFilterFabric;
     @Nullable
     private CitiesListContract.View mView;
+    @Nullable
+    private CitiesFilter mCitiesFilter;
+    @Nullable
+    private Worker<Boolean> mCitiesDataWorker;
     @NonNull
     private final FilteredResultsListener<CityModel> mFilteredResultsListener = new FilteredResultsListener<CityModel>() {
         @Override
@@ -37,9 +41,7 @@ final class CitiesListPresenter implements CitiesListContract.Presenter {
         }
     };
     @Nullable
-    private CitiesFilter mCitiesFilter;
-    @Nullable
-    private WorkerListener<List<CityModel>> mCitiesDataWorkerListener = new WorkerListener<List<CityModel>>() {
+    private WorkerListener<Boolean> mCitiesDataWorkerListener = new WorkerListener<Boolean>() {
         @Override
         public void onInitialSetup() {
             if (Condition.isNotNull(mView)) {
@@ -48,28 +50,25 @@ final class CitiesListPresenter implements CitiesListContract.Presenter {
         }
 
         @Override
-        public List<CityModel> provideResults() {
+        public Boolean provideResults() {
             mInteractor.init();
-            return mInteractor.getCities();
+            return true;
         }
 
         @Override
-        public void onResultsProvided(@Nullable final List<CityModel> results) {
+        public void onResultsProvided(@Nullable final Boolean results) {
             if (Condition.isNotNull(mView)) {
-                mCitiesFilter = mCitiesFilterFabric.create(mInteractor.getCities());
+                mCitiesFilter = mCitiesFilterFabric.create(mInteractor.getCitiesMap());
                 mCitiesFilter.registerListener(mFilteredResultsListener);
 
                 if (Condition.isNotNull(results)) {
-                    mView.setCities(results, CitiesListPresenter.this);
+                    mView.setCities(mInteractor.getCitiesList(), CitiesListPresenter.this);
                 }
 
                 mView.hideProgress();
             }
         }
     };
-
-    @Nullable
-    private Worker<List<CityModel>> mCitiesDataWorker;
 
     CitiesListPresenter(@NonNull final CitiesListContract.Coordinator coordinator,
                         @NonNull final CitiesListContract.View view,
@@ -101,12 +100,14 @@ final class CitiesListPresenter implements CitiesListContract.Presenter {
 
     @Override
     public void onViewReady() {
-        if (mInteractor.getCities().size() > 0) {
+        if (mInteractor.hasData()) {
             if (Condition.isNotNull(mView)) {
-                mView.setCities(mInteractor.getCities(), CitiesListPresenter.this);
+                mView.setCities(mInteractor.getCitiesList(), CitiesListPresenter.this);
             }
         } else if (Condition.isNotNull(mCitiesDataWorker)) {
-            mCitiesDataWorker.execute();
+            if (!mCitiesDataWorker.isWorking()) {
+                mCitiesDataWorker.execute();
+            }
         }
     }
 

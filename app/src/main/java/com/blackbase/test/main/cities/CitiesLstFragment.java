@@ -36,6 +36,8 @@ public final class CitiesLstFragment extends BaseFragment implements CitiesListC
     private ListView mCitiesList;
     @Nullable
     private Parcelable mCitiesListState;
+    @Nullable
+    private CitiesListAdapter mCitiesListAdapter;
 
     @Nullable
     private Loader mLoader;
@@ -120,7 +122,8 @@ public final class CitiesLstFragment extends BaseFragment implements CitiesListC
     public void setCities(@NonNull final List<CityModel> cities, @NonNull final CityClickListener cityClickListener) {
         final Activity activity = getActivity();
         if (Condition.isNotNull(activity)) {
-            mCitiesList.setAdapter(new CitiesListAdapter(activity, cities, cityClickListener));
+            mCitiesListAdapter = new CitiesListAdapter(activity, cities, cityClickListener);
+            mCitiesList.setAdapter(mCitiesListAdapter);
             if (Condition.isNotNull(mCitiesListState)) {
                 mCitiesList.onRestoreInstanceState(mCitiesListState);
             }
@@ -129,6 +132,8 @@ public final class CitiesLstFragment extends BaseFragment implements CitiesListC
 
     @Override
     public void updateCities(@NonNull final List<CityModel> cities) {
-        // TODO
+        if (Condition.isNotNull(mCitiesListAdapter)) {
+            mCitiesListAdapter.swapData(cities);
+        }
     }
 }
