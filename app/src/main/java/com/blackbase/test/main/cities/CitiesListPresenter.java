@@ -101,7 +101,11 @@ final class CitiesListPresenter implements CitiesListContract.Presenter {
 
     @Override
     public void onViewReady() {
-        if (Condition.isNotNull(mCitiesDataWorker)) {
+        if (mInteractor.getCities().size() > 0) {
+            if (Condition.isNotNull(mView)) {
+                mView.setCities(mInteractor.getCities(), CitiesListPresenter.this);
+            }
+        } else if (Condition.isNotNull(mCitiesDataWorker)) {
             mCitiesDataWorker.execute();
         }
     }

@@ -1,3 +1,4 @@
 <resources>
     <string name="app_name">Blackbase Test</string>
+    <string name="city_coordinates">Coordinates: %1$f, %2$f</string>
 </resources>

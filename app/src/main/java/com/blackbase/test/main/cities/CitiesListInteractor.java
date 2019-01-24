@@ -4,6 +4,7 @@ import android.support.annotation.NonNull;
 
 import com.blackbase.test.main.cities.data.CityModel;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -19,6 +20,7 @@ final class CitiesListInteractor implements CitiesListContract.Interactor {
 
     CitiesListInteractor(@NonNull final CitiesListContract.Service service) {
         mService = service;
+        mCityModels = new ArrayList<>();
     }
 
     @Override

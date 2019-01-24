@@ -8,20 +8,20 @@ import com.google.gson.annotations.SerializedName;
 public class Coordinates {
 
     @SerializedName("lat")
-    private final double mLatitude;
+    private final float mLatitude;
     @SerializedName("lon")
-    private final double mLongitude;
+    private final float mLongitude;
 
-    public Coordinates(final double latitude, final double longitude) {
+    public Coordinates(final float latitude, final float longitude) {
         mLatitude = latitude;
         mLongitude = longitude;
     }
 
-    public double getLatitude() {
+    public float getLatitude() {
         return mLatitude;
     }
 
-    public double getLongitude() {
+    public float getLongitude() {
         return mLongitude;
     }
 }

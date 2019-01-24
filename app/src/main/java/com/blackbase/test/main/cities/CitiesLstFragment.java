@@ -2,6 +2,7 @@ package com.blackbase.test.main.cities;
 
 import android.app.Activity;
 import android.os.Bundle;
+import android.os.Parcelable;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.text.Editable;
@@ -26,12 +27,15 @@ import java.util.List;
 public final class CitiesLstFragment extends BaseFragment implements CitiesListContract.View {
 
     public static final String TAG = "cities_fragment";
+    private static final String LIST_INSTANCE_STATE = "LIST_INSTANCE_STATE";
 
     @Nullable
     private CitiesListContract.Presenter mPresenter;
 
     private EditText mCitiesFilterField;
     private ListView mCitiesList;
+    @Nullable
+    private Parcelable mCitiesListState;
 
     @Nullable
     private Loader mLoader;
@@ -73,14 +77,24 @@ public final class CitiesLstFragment extends BaseFragment implements CitiesListC
 
         mCitiesList = view.findViewById(R.id.citiesList);
 
+        if (Condition.isNotNull(savedInstanceState)) {
+            mCitiesListState = savedInstanceState.getParcelable(LIST_INSTANCE_STATE);
+        }
+
         if (Condition.isNotNull(mPresenter)) {
             mPresenter.onViewReady();
         }
     }
 
     @Override
-    public void onDestroyView() {
-        super.onDestroyView();
+    public void onSaveInstanceState(@NonNull final Bundle outState) {
+        super.onSaveInstanceState(outState);
+        outState.putParcelable(LIST_INSTANCE_STATE, mCitiesList.onSaveInstanceState());
+    }
+
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
         mCitiesFilterField.removeTextChangedListener(mFilteringWatcherAdapter);
         if (Condition.isNotNull(mPresenter)) {
             mPresenter.destroy();
@@ -104,7 +118,13 @@ public final class CitiesLstFragment extends BaseFragment implements CitiesListC
 
     @Override
     public void setCities(@NonNull final List<CityModel> cities, @NonNull final CityClickListener cityClickListener) {
-        // TODO
+        final Activity activity = getActivity();
+        if (Condition.isNotNull(activity)) {
+            mCitiesList.setAdapter(new CitiesListAdapter(activity, cities, cityClickListener));
+            if (Condition.isNotNull(mCitiesListState)) {
+                mCitiesList.onRestoreInstanceState(mCitiesListState);
+            }
+        }
     }
 
     @Override
