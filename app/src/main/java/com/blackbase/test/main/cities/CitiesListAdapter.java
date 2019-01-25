@@ -12,6 +12,7 @@ import android.widget.TextView;
 import com.blackbase.test.R;
 import com.blackbase.test.common.Condition;
 import com.blackbase.test.main.cities.data.CityModel;
+import com.blackbase.test.main.cities.data.Coordinates;
 
 import java.util.List;
 
@@ -40,8 +41,7 @@ class CitiesListAdapter extends ArrayAdapter<CityModel> {
             convertView = inflater.inflate(R.layout.city_item, parent, false);
 
             viewHolder = new ViewHolder(
-                    (TextView) convertView.findViewById(R.id.cityName),
-                    (TextView) convertView.findViewById(R.id.cityCountry),
+                    (TextView) convertView.findViewById(R.id.cityTitle),
                     (TextView) convertView.findViewById(R.id.cityCoordinates)
             );
 
@@ -53,11 +53,14 @@ class CitiesListAdapter extends ArrayAdapter<CityModel> {
         final CityModel cityModel = getItem(position);
 
         if (Condition.isNotNull(cityModel)) {
-            viewHolder.mCityName.setText(cityModel.getName());
-            viewHolder.mCityCountry.setText(cityModel.getCountry());
+            final String cityTitle = getContext().getString(
+                    R.string.city_title, cityModel.getName(), cityModel.getCountry()
+            );
+            viewHolder.mCityTitle.setText(cityTitle);
 
+            final Coordinates coordinates = cityModel.getCoordinates();
             final String coordinatesTitle = getContext().getString(
-                    R.string.city_coordinates, cityModel.getCoordinates().getLatitude(), cityModel.getCoordinates().getLongitude()
+                    R.string.city_coordinates, coordinates.getLatitude(), coordinates.getLongitude()
             );
             viewHolder.mCityCoordinates.setText(coordinatesTitle);
 
@@ -79,17 +82,13 @@ class CitiesListAdapter extends ArrayAdapter<CityModel> {
 
     private static class ViewHolder {
         @NonNull
-        final TextView mCityName;
-        @NonNull
-        final TextView mCityCountry;
+        final TextView mCityTitle;
         @NonNull
         final TextView mCityCoordinates;
 
-        private ViewHolder(@NonNull final TextView cityName,
-                           @NonNull final TextView cityCountry,
+        private ViewHolder(@NonNull final TextView cityTitle,
                            @NonNull final TextView cityCoordinates) {
-            mCityName = cityName;
-            mCityCountry = cityCountry;
+            mCityTitle = cityTitle;
             mCityCoordinates = cityCoordinates;
         }
     }

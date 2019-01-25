@@ -18,8 +18,8 @@ import com.blackbase.test.main.cities.data.filtering.CitiesFilteringAlgorithmImp
  */
 final class CitiesListDependenciesProvider {
     @NonNull
-    public static Loader provideLoader() {
-        return LoaderProvider.getLoader();
+    public static Loader provideLoader(@NonNull final Activity activity) {
+        return LoaderProvider.getLoader(activity);
     }
 
     @NonNull

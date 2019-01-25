@@ -1,13 +1,20 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:focusable="true"
+    android:focusableInTouchMode="true">
 
     <EditText
         android:id="@+id/citiesFilterField"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_alignParentTop="true" />
+        android:layout_alignParentTop="true"
+        android:layout_margin="@dimen/grid_one"
+        android:hint="@string/filter_cities_hint"
+        android:imeOptions="actionDone"
+        android:inputType="text"
+        android:maxLines="1" />
 
     <ListView
         android:id="@+id/citiesList"
@@ -16,6 +23,8 @@
         android:layout_below="@+id/citiesFilterField"
         android:layout_alignParentBottom="true"
         android:clipToPadding="false"
+        android:focusable="true"
+        android:focusableInTouchMode="true"
         android:padding="@dimen/grid_one" />
 
 </RelativeLayout>

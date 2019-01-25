@@ -6,15 +6,19 @@ import android.os.Parcelable;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.text.Editable;
+import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.inputmethod.EditorInfo;
 import android.widget.EditText;
 import android.widget.ListView;
+import android.widget.TextView;
 
 import com.blackbase.test.R;
 import com.blackbase.test.common.BaseFragment;
 import com.blackbase.test.common.Condition;
+import com.blackbase.test.common.ContextUtils;
 import com.blackbase.test.common.TextWatcherAdapter;
 import com.blackbase.test.common.loader.Loader;
 import com.blackbase.test.main.cities.data.CityModel;
@@ -56,10 +60,10 @@ public final class CitiesLstFragment extends BaseFragment implements CitiesListC
     public void onCreate(@Nullable final Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setRetainInstance(true);
-        mLoader = CitiesListDependenciesProvider.provideLoader();
 
         final Activity activity = getActivity();
         if (Condition.isNotNull(activity)) {
+            mLoader = CitiesListDependenciesProvider.provideLoader(activity);
             mPresenter = CitiesListDependenciesProvider.providePresenter(activity, this);
         }
     }
@@ -74,10 +78,25 @@ public final class CitiesLstFragment extends BaseFragment implements CitiesListC
     public void onViewCreated(@NonNull final View view, @Nullable final Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
+        mCitiesList = view.findViewById(R.id.citiesList);
+
         mCitiesFilterField = view.findViewById(R.id.citiesFilterField);
         mCitiesFilterField.addTextChangedListener(mFilteringWatcherAdapter);
-
-        mCitiesList = view.findViewById(R.id.citiesList);
+        mCitiesFilterField.setOnEditorActionListener(new EditText.OnEditorActionListener() {
+            @Override
+            public boolean onEditorAction(final TextView v, final int actionId, final KeyEvent event) {
+                if (actionId == EditorInfo.IME_ACTION_DONE) {
+                    final Activity activity = getActivity();
+                    if (Condition.isNotNull(activity)) {
+                        ContextUtils.hideKeyboardFrom(activity, view);
+                    }
+                    mCitiesList.requestFocus();
+                    return true;
+                } else {
+                    return false;
+                }
+            }
+        });
 
         if (Condition.isNotNull(savedInstanceState)) {
             mCitiesListState = savedInstanceState.getParcelable(LIST_INSTANCE_STATE);

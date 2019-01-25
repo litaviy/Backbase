@@ -1,5 +1,6 @@
 package com.blackbase.test.common.loader;
 
+import android.app.Activity;
 import android.support.annotation.NonNull;
 
 /**
@@ -7,10 +8,10 @@ import android.support.annotation.NonNull;
  */
 public class LoaderProvider {
     @NonNull
-    public static Loader getLoader() {
+    public static Loader getLoader(@NonNull final Activity activity) {
         /*
         Basing on whatever we want we provide loader presentation.
          */
-        return new ProgressBarLoader();
+        return new ProgressBarLoader(activity);
     }
 }

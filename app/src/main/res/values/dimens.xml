@@ -1,4 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+    <dimen name="grid_half">4dp</dimen>
     <dimen name="grid_one">8dp</dimen>
+    <dimen name="grid_one_point_five">12dp</dimen>
+    <dimen name="progress_bar_size">12dp</dimen>
+
+    <dimen name="h2">22sp</dimen>
+    <dimen name="h6">16sp</dimen>
 </resources>
