@@ -8,6 +8,7 @@ import com.blackbase.test.data.AssetsFileStreamProvider;
 import com.blackbase.test.logging.Logger;
 import com.blackbase.test.main.cities.data.CitiesServiceData;
 import com.blackbase.test.main.cities.data.CityModel;
+import com.blackbase.test.main.cities.data.CityModelComparator;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.stream.JsonReader;
@@ -31,20 +32,10 @@ final class CitiesListService implements CitiesListContract.Service {
     private final AssetsFileStreamProvider mAssetsFileStreamProvider;
     @NonNull
     private final Gson mGson;
+    @NonNull
+    private final Comparator<CityModel> mCityModelComparator;
     @Nullable
     private Logger mLogger;
-
-    private Comparator<CityModel> mCityModelComparator = new Comparator<CityModel>() {
-        @Override
-        public int compare(final CityModel city1, final CityModel city2) {
-            final int result = city1.getName().compareTo(city2.getName());
-            if (result != 0) {
-                return result;
-            } else {
-                return city1.getCountry().compareTo(city2.getCountry());
-            }
-        }
-    };
 
     CitiesListService(@NonNull final CitiesListServiceProperties properties,
                       @NonNull final AssetsFileStreamProvider assetsFileStreamProvider,
@@ -54,13 +45,22 @@ final class CitiesListService implements CitiesListContract.Service {
         mLogger = logger;
         // This variable has tiny context, so should initialized here.
         mGson = new GsonBuilder().create();
+        mCityModelComparator = new CityModelComparator();
     }
+
 
     @NonNull
     @Override
     public CitiesServiceData getCitiesServiceData() {
 
+        /*
+        Used LinkedList because the ended size of the list is unknown.
+         */
         final List<CityModel> citiesList = new LinkedList<>();
+        /*
+        Used TreeMap because of sorting feature and key - value access.
+        Used TreeSet because of sorting feature.
+         */
         final TreeMap<String, TreeSet<CityModel>> citiesMap = new TreeMap<>();
 
         try {

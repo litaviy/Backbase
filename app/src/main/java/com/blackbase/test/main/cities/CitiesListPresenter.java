@@ -26,10 +26,6 @@ final class CitiesListPresenter implements CitiesListContract.Presenter {
     private final CitiesFilterFabric mCitiesFilterFabric;
     @Nullable
     private CitiesListContract.View mView;
-    @Nullable
-    private CitiesFilter mCitiesFilter;
-    @Nullable
-    private Worker<Boolean> mCitiesDataWorker;
     @NonNull
     private final FilteredResultsListener<CityModel> mFilteredResultsListener = new FilteredResultsListener<CityModel>() {
         @Override
@@ -39,6 +35,10 @@ final class CitiesListPresenter implements CitiesListContract.Presenter {
             }
         }
     };
+    @Nullable
+    private CitiesFilter mCitiesFilter;
+    @Nullable
+    private Worker<Boolean> mCitiesDataWorker;
     @Nullable
     private WorkerListener<Boolean> mCitiesDataWorkerListener = new WorkerListener<Boolean>() {
         @Override

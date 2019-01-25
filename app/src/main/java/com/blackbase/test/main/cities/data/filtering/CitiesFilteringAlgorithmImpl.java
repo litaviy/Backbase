@@ -20,6 +20,16 @@ public class CitiesFilteringAlgorithmImpl implements CitiesFilteringAlgorithm {
     @NonNull
     private List<CityModel> mEmptyResult = new LinkedList<>();
 
+    /**
+     * Uses first letter of constraint value as a key for the map.
+     * The map provides List<CityModel> which contains cities which starts with first letter of constraint value,
+     * so we don't look on another names.
+     * After is used linear search in given List<CityModel>.
+     *
+     * @param constraint - filtering query.
+     * @param target     - data source for filtering.
+     * @return - filtered result or all the data from target if there is no any results.
+     */
     @NonNull
     @Override
     public List<CityModel> invoke(@Nullable final CharSequence constraint, @NonNull final TreeMap<String, TreeSet<CityModel>> target) {
