@@ -5,7 +5,6 @@ import android.support.annotation.Nullable;
 
 import com.blackbase.test.common.Condition;
 import com.blackbase.test.main.cities.data.CityModel;
-import com.blackbase.test.main.cities.data.Coordinates;
 import com.blackbase.test.main.cities.data.filtering.CitiesFilter;
 import com.blackbase.test.main.cities.data.filtering.CitiesFilterFabric;
 import com.blackbase.test.main.cities.data.filtering.FilteredResultsListener;
@@ -119,7 +118,7 @@ final class CitiesListPresenter implements CitiesListContract.Presenter {
     }
 
     @Override
-    public void onCityCoordinatesClick(@NonNull final Coordinates coordinates) {
-        mCoordinator.cityCoordinatesClicked(coordinates);
+    public void onCityCoordinatesClick(@NonNull final CityModel cityModel) {
+        mCoordinator.cityCoordinatesClicked(cityModel);
     }
 }

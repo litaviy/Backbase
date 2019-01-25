@@ -64,7 +64,7 @@ class CitiesListAdapter extends ArrayAdapter<CityModel> {
             convertView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(final View v) {
-                    mCityClickListener.onCityCoordinatesClick(cityModel.getCoordinates());
+                    mCityClickListener.onCityCoordinatesClick(cityModel);
                 }
             });
         }
@@ -72,7 +72,7 @@ class CitiesListAdapter extends ArrayAdapter<CityModel> {
         return convertView;
     }
 
-    public void swapData(@NonNull final List<CityModel> cityModels) {
+    void swapData(@NonNull final List<CityModel> cityModels) {
         clear();
         addAll(cityModels);
     }

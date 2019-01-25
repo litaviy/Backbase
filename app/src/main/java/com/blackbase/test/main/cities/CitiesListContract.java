@@ -6,7 +6,6 @@ import com.blackbase.test.common.Destroyable;
 import com.blackbase.test.common.Loadable;
 import com.blackbase.test.main.cities.data.CitiesServiceData;
 import com.blackbase.test.main.cities.data.CityModel;
-import com.blackbase.test.main.cities.data.Coordinates;
 
 import java.util.List;
 import java.util.TreeMap;
@@ -18,7 +17,7 @@ import java.util.TreeSet;
 public interface CitiesListContract {
 
     interface Coordinator extends Destroyable {
-        void cityCoordinatesClicked(@NonNull final Coordinates coordinates);
+        void cityCoordinatesClicked(@NonNull final CityModel cityModel);
     }
 
     interface View extends Loadable {
@@ -28,7 +27,7 @@ public interface CitiesListContract {
         void updateCities(@NonNull final List<CityModel> cities);
 
         interface CityClickListener {
-            void onCityCoordinatesClick(@NonNull final Coordinates coordinates);
+            void onCityCoordinatesClick(@NonNull final CityModel cityModel);
         }
     }
 
@@ -42,6 +41,7 @@ public interface CitiesListContract {
         void init();
 
         boolean hasData();
+
         @NonNull
         List<CityModel> getCitiesList();
 

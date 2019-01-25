@@ -1,4 +1,8 @@
 <resources>
     <string name="app_name">Blackbase Test</string>
-    <string name="city_coordinates">Coordinates: %1$f, %2$f</string>
+    <string name="city_coordinates">Coordinates: %1$f,%2$f</string>
+
+    <string name="maps_intent_action_geo">geo:%1$s,%2$s</string>
+
+    <string name="cannot_handle_intent_error">No Application can handle your intent!</string>
 </resources>
